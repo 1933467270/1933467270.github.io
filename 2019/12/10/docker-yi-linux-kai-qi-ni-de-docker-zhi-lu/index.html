@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="docker使用, web,javascript,java,docker,git,html,css,h5,小程序">
+    <meta name="keywords" content="Docker(一) Linux开启你的Docker之旅, web,javascript,java,docker,git,html,css,h5,小程序">
     <meta name="description" content="一个前端工程师">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>docker使用 | 怜昕听雨</title>
+    <title>Docker(一) Linux开启你的Docker之旅 | 怜昕听雨</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -322,12 +322,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('http://riyugo.com/i/2020/10/22/o3oqfx.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('http://qimxevpa4.hn-bkt.clouddn.com/20201023155340.png ')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">docker使用</h1>
+                    <h1 class="description center-align post-title">Docker(一) Linux开启你的Docker之旅</h1>
                 </div>
             </div>
         </div>
@@ -365,8 +365,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/docker/" class="post-category">
-                                docker
+                            <a href="/categories/Docker/" class="post-category">
+                                Docker
                             </a>
                         
                     </div>
@@ -378,7 +378,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-10-22
+                    2019-12-10
                 </div>
                 
 
@@ -394,7 +394,71 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Docker">Docker</a>容器最早受到 RHEL 完善的支持是从最近的 CentOS7 开始的，官方说明是只能运行于 64 位架构平台，内核版本为 2.6.32-431 及以上（即 &gt;= CentOS 6.5，运行 docker 时实际提示 3.10.0 及以上）。 需要注意的是 CentOS 6.5 与 7.0 的安装是有一点点不同的，CentOS 6.x 上 Docker 的安装包叫 docker-io，并且来源于 Fedora epel 库这个仓库维护了大量的没有包含在发行版中的软件，所以先要安装 EPEL，而 CentOS 7.x 的 Docker 直接包含在官方镜像源的 Extras 仓库（CentOS-Base.repo 下的[extras]节 enable=1 启用）。<br><strong>备注：</strong>本文的安装环境是 CentOS 7.6，不适用 CentOS 6.x 的相关环境，切记！</p>
+<h1 id="一、安装与配置"><a href="#一、安装与配置" class="headerlink" title="一、安装与配置"></a>一、安装与配置</h1><h2 id="1-安装依赖包"><a href="#1-安装依赖包" class="headerlink" title="1. 安装依赖包#"></a>1. 安装依赖包<a href="#4164909197">#</a></h2><pre class=" language-bash"><code class="language-bash">    <span class="token function">sudo</span> yum <span class="token function">install</span> -y yum-utils device-mapper-persistent-data lvm2</code></pre>
+<h2 id="2-设置阿里云镜像源"><a href="#2-设置阿里云镜像源" class="headerlink" title="2. 设置阿里云镜像源#"></a>2. 设置阿里云镜像源<a href="#3464765874">#</a></h2><pre class=" language-bash"><code class="language-bash">    <span class="token function">sudo</span> yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</code></pre>
+<h2 id="3-安装-Docker-CE"><a href="#3-安装-Docker-CE" class="headerlink" title="3. 安装 Docker-CE#"></a>3. 安装 Docker-CE<a href="#2133141642">#</a></h2><ul>
+<li>重建 Yum 缓存。</li>
+<li>安装 Docker-CE ，请执行一下命令进行安装：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">    <span class="token function">sudo</span> yum <span class="token function">install</span> docker-ce</code></pre>
+<h2 id="4-启动-Docker-CE"><a href="#4-启动-Docker-CE" class="headerlink" title="4. 启动 Docker-CE#"></a>4. 启动 Docker-CE<a href="#1748829053">#</a></h2><pre class=" language-bash"><code class="language-bash">    <span class="token function">sudo</span> systemctl <span class="token function">enable</span> docker
+    <span class="token function">sudo</span> systemctl start docker</code></pre>
+<h2 id="5-可选-为-Docker-建立用户组"><a href="#5-可选-为-Docker-建立用户组" class="headerlink" title="5.[可选] 为 Docker 建立用户组#"></a>5.<em>[可选]</em> 为 Docker 建立用户组<a href="#465944074">#</a></h2><p> docker 命令与 Docker 引擎通讯之间通过 UnixSocket ，但是能够有访问 UnixSocket 的用户只有 root 和 docker 用户组的用户才能够访问，所以我们需要建立一个 docker 用户组，并且将需要访问 docker用户添加到这一个用户组当中来。</p>
+<h3 id="lt-1-gt-建立-Docker-用户组"><a href="#lt-1-gt-建立-Docker-用户组" class="headerlink" title="&lt;1&gt;. 建立 Docker 用户组#"></a>&lt;1&gt;. 建立 Docker 用户组<a href="#1277680120">#</a></h3><pre class=" language-bash"><code class="language-bash">    <span class="token function">sudo</span> <span class="token function">groupadd</span> docker</code></pre>
+<h3 id="lt-2-gt-添加当前用户到-docker-组"><a href="#lt-2-gt-添加当前用户到-docker-组" class="headerlink" title="&lt;2&gt;. 添加当前用户到 docker 组#"></a>&lt;2&gt;. 添加当前用户到 docker 组<a href="#3342962821">#</a></h3><pre class=" language-bash"><code class="language-bash">    <span class="token function">sudo</span> <span class="token function">usermod</span> -aG docker <span class="token variable">$USER</span></code></pre>
+<h2 id="6-镜像加速配置"><a href="#6-镜像加速配置" class="headerlink" title="6. 镜像加速配置#"></a>6. 镜像加速配置<a href="#1004449141">#</a></h2><p>  因为大天朝网络的问题，下载镜像会很慢。这里使用的是 <a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/#/accelerator">阿里云提供的镜像加速</a> ，登录并且设置密码之后在左侧的  <strong>Docker Hub 镜像站点</strong>  可以找到专属加速器地址，复制下来。</p>
+<p>  然后执行以下命令：</p>
+<pre class=" language-shell"><code class="language-shell">    sudo mkdir -p /etc/docker
+    sudo tee /etc/docker/daemon.json <<-'EOF'
+    &#123;
+    "registry-mirrors": ["你的加速器地址"] 
+    &#125;
+    EOF
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker</code></pre>
+<p>  之后重新加载配置，并且重启 Docker 服务</p>
+<pre class=" language-bash"><code class="language-bash">    systemctl daemon-reload
+    systemctl restart docker`</code></pre>
+<h2 id="二、配置-Docker-容器与镜像"><a href="#二、配置-Docker-容器与镜像" class="headerlink" title="二、配置 Docker 容器与镜像"></a>二、配置 Docker 容器与镜像</h2><h2 id="1-拉取镜像"><a href="#1-拉取镜像" class="headerlink" title="1. 拉取镜像#"></a>1. 拉取镜像<a href="#1901705186">#</a></h2><p>  拉取微软在 Docker 上的 aspnetcore 镜像:</p>
+<pre class=" language-bash"><code class="language-bash">    docker pull microsoft/aspnetcore`</code></pre>
+<p>  之后执行以下命令查看是否拉取成功:</p>
+<pre class=" language-bash"><code class="language-bash">    docker images</code></pre>
+<p>  <img src="http://qimxevpa4.hn-bkt.clouddn.com/20201023155340.png" title="效果图"></p>
+<h2 id="三、Docker-常用命令"><a href="#三、Docker-常用命令" class="headerlink" title="三、Docker 常用命令#"></a>三、Docker 常用命令<a href="#128633834">#</a></h2><h3 id="1-拉取镜像-1"><a href="#1-拉取镜像-1" class="headerlink" title="1. 拉取镜像#"></a>1. 拉取镜像<a href="#3887196110">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker pull</code></pre>
+<h3 id="2-删除容器"><a href="#2-删除容器" class="headerlink" title="2. 删除容器#"></a>2. 删除容器<a href="#1513939020">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker <span class="token function">rm</span> <span class="token operator">&lt;</span>容器名 or ID<span class="token operator">></span></code></pre>
+<h3 id="3-查看容器日志"><a href="#3-查看容器日志" class="headerlink" title="3. 查看容器日志#"></a>3. 查看容器日志<a href="#1573670292">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker logs -f <span class="token operator">&lt;</span>容器名 or ID<span class="token operator">></span></code></pre>
+<h3 id="4-查看正在运行的容器"><a href="#4-查看正在运行的容器" class="headerlink" title="4. 查看正在运行的容器#"></a>4. 查看正在运行的容器<a href="#3954229015">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker <span class="token function">ps</span>
+    docker <span class="token function">ps</span> -a <span class="token comment" spellcheck="true"># 为查看所有的容器，包括已经停止的。</span></code></pre>
+<h3 id="5-删除所有容器"><a href="#5-删除所有容器" class="headerlink" title="5. 删除所有容器#"></a>5. 删除所有容器<a href="#2044767859">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker <span class="token function">rm</span> <span class="token variable"><span class="token variable">$(</span>docker <span class="token function">ps</span> -a -q<span class="token variable">)</span></span></code></pre>
+<h3 id="6-停止、启动、杀死指定容器"><a href="#6-停止、启动、杀死指定容器" class="headerlink" title="6. 停止、启动、杀死指定容器#"></a>6. 停止、启动、杀死指定容器<a href="#2016919788">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker start <span class="token operator">&lt;</span>容器名 or ID<span class="token operator">></span> <span class="token comment" spellcheck="true"># 启动容器</span>
+    docker stop <span class="token operator">&lt;</span>容器名 or ID<span class="token operator">></span> <span class="token comment" spellcheck="true"># 启动容器</span>
+    docker <span class="token function">kill</span> <span class="token operator">&lt;</span>容器名 or ID<span class="token operator">></span> <span class="token comment" spellcheck="true"># 杀死容器</span></code></pre>
+<h3 id="7-查看所有镜像"><a href="#7-查看所有镜像" class="headerlink" title="7. 查看所有镜像#"></a>7. 查看所有镜像<a href="#275599881">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker images</code></pre>
+<h3 id="8-拉取镜像"><a href="#8-拉取镜像" class="headerlink" title="8. 拉取镜像#"></a>8. 拉取镜像<a href="#3919466730">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker pull <span class="token operator">&lt;</span>镜像名:tag<span class="token operator">></span>
+<span class="token comment" spellcheck="true"># 例如以下代码</span>
+    docker pull sameersbn/redmine:latest</code></pre>
+<h3 id="9-后台运行"><a href="#9-后台运行" class="headerlink" title="9. 后台运行#"></a>9. 后台运行<a href="#4191694435">#</a></h3><pre class=" language-bash"><code class="language-bash">    docker run -d <span class="token operator">&lt;</span>Other Parameters<span class="token operator">></span>
+    <span class="token comment" spellcheck="true">#例如</span>
+    docker run -d -p 127.0.0.1:33301:22 centos6-ssh</code></pre>
+<h3 id="10-暴露端口"><a href="#10-暴露端口" class="headerlink" title="10. 暴露端口#"></a>10. 暴露端口<a href="#2376900651">#</a></h3><pre class=" language-bash"><code class="language-bash">    <span class="token comment" spellcheck="true"># 一共有三种形式进行端口映射</span>
+    docker -p ip:hostPort:containerPort <span class="token comment" spellcheck="true"># 映射指定地址的主机端口到容器端口</span>
+    <span class="token comment" spellcheck="true"># 例如：docker -p 127.0.0.1:3306:3306 映射本机3306端口到容器的3306端口</span>
+    docker -p ip:containerPort <span class="token comment" spellcheck="true"># 映射指定地址的任意可用端口到容器端口</span>
+    <span class="token comment" spellcheck="true"># 例如：docker -p 127.0.0.1::3306 映射本机的随机可用端口到容器3306端口</span>
+    docer -p hostPort:containerPort <span class="token comment" spellcheck="true"># 映射本机的指定端口到容器的指定端口</span>
+    <span class="token comment" spellcheck="true"># 例如：docker -p 3306:3306 # 映射本机的3306端口到容器的3306端口</span></code></pre>
+<h2 id="11-映射数据卷"><a href="#11-映射数据卷" class="headerlink" title="11. 映射数据卷#"></a>11. 映射数据卷<a href="#323431641">#</a></h2><pre class=" language-bash"><code class="language-bash">    docker -v /home/data:/opt/data <span class="token comment" spellcheck="true"># 这里/home/data 指的是宿主机的目录地址，后者则是容器的目录地址</span></code></pre>
+<h2 id="四、GUI-管理配置"><a href="#四、GUI-管理配置" class="headerlink" title="四、GUI 管理配置#"></a>四、GUI 管理配置<a href="#3663272399">#</a></h2><p>  这里推荐使用 Portainer 作为容器的 GUI 管理方案。</p>
+<p>  官方地址：<a target="_blank" rel="noopener" href="https://portainer.io/install.html">https://portainer.io/install.html</a></p>
+<p>  安装命令：</p>
+<pre class=" language-bash"><code class="language-bash">    docker volume create portainer_data
+    docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer</code></pre>
+<p>访问你的 IP:9000 即可进入容器管理页面。</p>
+<p>如下：</p>
+<p><img src="http://www.wcloves.club/wp-content/uploads/2019/12/docer1-2.png" title="管理界面"></p>
+<p><img src="http://www.wcloves.club/wp-content/uploads/2019/12/docker1-3.png" title="容器仓库"></p>
+
             </div>
             <hr/>
 
@@ -419,7 +483,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/10/22/docker-shi-yong/">http://example.com/2020/10/22/docker-shi-yong/</a>
+                    <a href="http://example.com/2019/12/10/docker-yi-linux-kai-qi-ni-de-docker-zhi-lu/">http://example.com/2019/12/10/docker-yi-linux-kai-qi-ni-de-docker-zhi-lu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -630,35 +694,82 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/10/22/docker-shi-yong/">
+                <a href="/2020/01/01/yuan-dan-kuai-le/">
                     <div class="card-image">
                         
-                        <img src="http://riyugo.com/i/2020/10/22/o3oqfx.jpg" class="responsive-img" alt="docker使用">
+                        <img src="http://qimxevpa4.hn-bkt.clouddn.com/20201023160419.jpg" class="responsive-img" alt="元旦快乐！！！">
                         
-                        <span class="card-title">docker使用</span>
+                        <span class="card-title">元旦快乐！！！</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            这是你自定义的文章摘要内容，如果这个属性有值，文章卡片摘要就显示这段文字，否则程序会自动截取文章的部分内容作为摘要
+                            元旦快乐
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%97%A5%E5%B8%B8/" class="post-category">
+                                    日常
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%97%A5%E5%B8%B8/">
+                        <span class="chip bg-color">日常</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/12/10/docker-yi-linux-kai-qi-ni-de-docker-zhi-lu/">
+                    <div class="card-image">
+                        
+                        <img src="http://qimxevpa4.hn-bkt.clouddn.com/20201023155340.png " class="responsive-img" alt="Docker(一) Linux开启你的Docker之旅">
+                        
+                        <span class="card-title">Docker(一) Linux开启你的Docker之旅</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Docker(一) Linux开启你的Docker之旅
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/docker/" class="post-category">
-                                    docker
+                            <a href="/categories/Docker/" class="post-category">
+                                    Docker
                                 </a>
                             
                             
@@ -675,58 +786,6 @@
                     
                     <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">
                         <span class="chip bg-color">自动化</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/10/22/hello-world/">
-                    <div class="card-image">
-                        
-                        <img src="http://riyugo.com/i/2020/10/22/o3oqfx.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            hellow world
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-22
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Hexo/" class="post-category">
-                                    Hexo
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Hexo/">
-                        <span class="chip bg-color">Hexo</span>
-                    </a>
-                    
-                    <a href="/tags/Markdown/">
-                        <span class="chip bg-color">Markdown</span>
                     </a>
                     
                 </div>
